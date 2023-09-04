@@ -48,23 +48,27 @@ function App() {
         placeholder="Add new timezone"
         onSelectOption={onSelectTimeZone}
       />
-      <div className="fav_container">
-        {timeZonesSelected.map((timezone) => {
-          const date = new Date(timezone.datetime).toLocaleDateString("es-AR");
-          const hour = new Date(timezone.utc_datetime);
-          return (
-            <Card
-              onDelete={() => onDeleteTimeZone(timezone.timezone as string)}
-            >
-              <Card.Title>{timezone.timezone}</Card.Title>
-              <Card.Body>
-                <p>{date}</p>
-                <p>{convert24To12(hour)}</p>
-              </Card.Body>
-            </Card>
-          );
-        })}
-      </div>
+      {timeZonesSelected.length ? (
+        <div className="fav_container">
+          {timeZonesSelected.map((timezone) => {
+            const date = new Date(timezone.datetime).toLocaleDateString(
+              "es-AR"
+            );
+            const hour = new Date(timezone.utc_datetime);
+            return (
+              <Card
+                onDelete={() => onDeleteTimeZone(timezone.timezone as string)}
+              >
+                <Card.Title>{timezone.timezone}</Card.Title>
+                <Card.Body>
+                  <p>{date}</p>
+                  <p>{convert24To12(hour)}</p>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 }
